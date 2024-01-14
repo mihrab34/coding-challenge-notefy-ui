@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
+import TextField from './components/TextField';
 
 const App:React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <h3>Notefy</h3>
-      </header>
+      <span className="App-header">Notefy</span>
+      <TextField />
+      
     </div>
   );
 }
