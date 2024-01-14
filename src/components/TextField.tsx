@@ -1,7 +1,12 @@
 import React from 'react'
 import './styles.css';
 
-const TextField:React.FC = () => {
+interface Props {
+  note: string;
+  setNote: React.Dispatch<React.SetStateAction<string>>
+}
+
+const TextField = ({note, setNote}: Props) => {
   return (
     <form className='text'>
         <div className='text_input'>
