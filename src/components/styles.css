@@ -1,24 +1,26 @@
 .text {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5em;
+    width: 40%;
 }
 
-.text_label {
-    padding: 10px 20px;
+.text_label, 
+.text_input  label {
+    padding: 5px 10px;
     font-size: 25px;
     color: #fff;
 }
 
-.text_box{
+.text_note {
+    margin: 20px 0px;
+}
+
+.text_box,
+.text_input input{
     width: 100%;
-    border-radius: 25px;
-    padding: 10px 20px;
+    border-radius: 10px;
+    padding: 5px 10px;
     font-size: 25px;
     border: none;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .text_submit{
@@ -29,13 +31,12 @@
     font-size: 18px;
     background-color: #282c34;
     color: #fff;
-    margin-top: 20px;
     box-shadow: 0 0 10px #282c34;
 }
 
 @media (max-width: 800px) {
     .text {
         width: 50%;
-        flex-direction: column;
+        
     }
 }
