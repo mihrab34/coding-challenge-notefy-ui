@@ -8,6 +8,7 @@ import { INote } from './model';
 // }
 
 const initialValues: INote = {
+  id:0,
   title: "",
   body: "",
 };
@@ -52,7 +53,7 @@ const TextField = () => {
 
 
   return (
-    <form className='text flex flex-col justify-between items-center' onSubmit={handleSubmit}>
+    <form className='text flex flex-col justify-between items-center my-2' onSubmit={handleSubmit}>
       <div className='text_input text_note'>
         <label htmlFor='title'>Note title:</label>
         <input id='title' type='text' name='title' placeholder='Enter note title' value={title} onChange={handleChange} />
