@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import { INote } from './components/model';
-import TextField from './components/TextField';
-import NoteList from './components/NoteList';
+import { INote } from './Components/model';
+import TextField from './Components/TextField';
+import NoteList from './Components/NoteList';
 
 const App:React.FC = () => {
   const [notes, setNotes] = useState<INote[]>([]);

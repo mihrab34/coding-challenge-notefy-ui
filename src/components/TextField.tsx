@@ -2,13 +2,7 @@ import React,{useState}from 'react';
 import './styles.css';
 import { INote } from './model';
 
-// interface Note {
-//   title: string;
-//   content: string;
-// }
-
 const initialValues: INote = {
-  id:0,
   title: "",
   body: "",
 };
@@ -17,7 +11,7 @@ type Props = {
   fetchNotes: () => Promise<void>
 }
 
-const TextField:React.FC<Props> = (fetchNotes) => {
+const TextField:React.FC<Props> = ({fetchNotes}) => {
   const [note, setNote] = useState<INote>(initialValues)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -38,10 +32,10 @@ const TextField:React.FC<Props> = (fetchNotes) => {
 
     try {
         const response = await fetch("http://localhost:5000/api/", options);
+        if (response.ok) {
         const data = await response.json();
-        if (response.status === 201) {
           alert(data.message);
-          // fetchNotes();
+          fetchNotes();
           setNote(initialValues)
         }
         else if (response.status === 400){

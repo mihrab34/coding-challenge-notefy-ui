@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { INote } from './model';
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
+import io from 'socket.io-client';
 
 type NoteProps = {
     note :INote,
@@ -10,6 +11,20 @@ type NoteProps = {
 }
 
 const Note:React.FC<NoteProps> = ({note, notes, fetchNotes }) => {
+    const socket = io('http://localhost:5000');
+    const [edit, setEdit] = useState(note)
+
+    const handleEdit = () => {
+        const noteId = note.id;
+      
+        socket.emit('updateNote', { id: noteId, noteData: edit });
+      };
+
+      const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const value = e.target.value;
+        setEdit({ ...note, [e.target.id]: value });
+      };
+    //   delete Note
     const handleDelete = async(id:number) =>{
         try {
             const response = await fetch(`http://localhost:5000/api/note/${id}`, {method: 'DELETE'});
@@ -33,7 +48,7 @@ const Note:React.FC<NoteProps> = ({note, notes, fetchNotes }) => {
                 <span className='cursor-pointer text-2xl mr-2'>
                 <CiEdit />
                 </span>
-                <span className='cursor-pointer text-2xl' onClick={() => handleDelete(note.id)}>
+                <span className='cursor-pointer text-2xl' onClick={() => handleDelete(note.id ?? -1)}>
                 <MdDelete />
                 </span>
             </div>
