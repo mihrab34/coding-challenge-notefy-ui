@@ -9,12 +9,14 @@ interface Props {
 
 const NoteList:React.FC<Props> = ({notes, setNotes}) => {
   return (
-    <div className='w-auto flex flex-row flex-wrap justify-between items-center'>
+    <div className='w-11/12 flex flex-row flex-wrap justify-between items-center'>
+        
         {notes.map((note) => (
-        <div key={note.id}>
-          <h1>{note.title}</h1>
-          <p>{note.body}</p>
-        </div>
+            <Note 
+            key={note.id} 
+            note={note} 
+            notes={notes}
+            setNotes={setNotes} />
       ))}
     </div>
   )
