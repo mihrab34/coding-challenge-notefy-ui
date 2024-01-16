@@ -4,19 +4,19 @@ import Note from './Note';
 
 interface Props {
     notes: INote[],
-    setNotes:React.Dispatch<React.SetStateAction<INote[]>>
+    fetchNotes: () => Promise<void>
 }
 
-const NoteList:React.FC<Props> = ({notes, setNotes}) => {
+const NoteList:React.FC<Props> = ({notes, fetchNotes}) => {
   return (
-    <div className='w-11/12 flex flex-row flex-wrap justify-between items-center'>
+    <div className='md:w-96 lg:w-11/12  flex flex-row flex-wrap justify-between md:gap-6 items-center'>
         
         {notes.map((note) => (
             <Note 
             key={note.id} 
             note={note} 
             notes={notes}
-            setNotes={setNotes} />
+            fetchNotes={fetchNotes} />
       ))}
     </div>
   )

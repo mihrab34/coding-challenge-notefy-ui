@@ -13,7 +13,11 @@ const initialValues: INote = {
   body: "",
 };
 
-const TextField = () => {
+type Props = {
+  fetchNotes: () => Promise<void>
+}
+
+const TextField:React.FC<Props> = (fetchNotes) => {
   const [note, setNote] = useState<INote>(initialValues)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -37,6 +41,7 @@ const TextField = () => {
         const data = await response.json();
         if (response.status === 201) {
           alert(data.message);
+          // fetchNotes();
           setNote(initialValues)
         }
         else if (response.status === 400){

@@ -6,24 +6,24 @@ import NoteList from './components/NoteList';
 
 const App:React.FC = () => {
   const [notes, setNotes] = useState<INote[]>([]);
+  const fetchNotes = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/notes");
+      const data = await response.json();
+      setNotes(data.notes);
+    } catch (error) {
+      console.error("Error fetching notes:", error);
+    }
+  };
     useEffect(() => {
-      const fetchNotes = async () => {
-        try {
-          const response = await fetch("http://localhost:5000/api/notes");
-          const data = await response.json();
-          setNotes(data.notes);
-        } catch (error) {
-          console.error("Error fetching notes:", error);
-        }
-      };
       fetchNotes()
-    }, [])    
+    }, [setNotes])  
   
   return (
     <div className="App">
       <span className="App-header">Notefy</span>
-      <TextField  />
-      <NoteList notes={notes} setNotes={setNotes} />
+      <TextField fetchNotes={fetchNotes}  />
+      <NoteList notes={notes} fetchNotes={fetchNotes} />
       
     </div>
   );
