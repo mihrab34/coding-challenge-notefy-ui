@@ -11,4 +11,8 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### [Live version(https://coding-challenge-notefy-ui.vercel.app/)
+### [Clone and run the server on localhost](https://github.com/mihrab34/coding-challenge-notefy-api)
+
+### [Live version](https://coding-challenge-notefy-ui.vercel.app/)
+
+
