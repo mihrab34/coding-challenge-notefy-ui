@@ -4,5 +4,6 @@ export interface INote {
     body: string;
     createdAt?: string;
     updatedAt?:string;
-
 }
+
+export const baseUrl = 'http://localhost:5000/api/'

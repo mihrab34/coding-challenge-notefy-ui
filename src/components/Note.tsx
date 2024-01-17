@@ -1,8 +1,12 @@
-import React, {useState} from 'react'
-import { INote } from './model';
+import React, {useState, useEffect} from 'react'
+import { INote, baseUrl } from './model';
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
+import _ from 'lodash';
 import io from 'socket.io-client';
+// import * as io from "socket.io-client";
+
+const socket = io(`${baseUrl}`);
 
 type NoteProps = {
     note :INote,
@@ -11,25 +15,31 @@ type NoteProps = {
 }
 
 const Note:React.FC<NoteProps> = ({note, notes, fetchNotes }) => {
-    const socket = io('http://localhost:5000/api/note');
+    
     const [edit, setEdit] = useState<boolean>(false)
     const [editNote, setEditNote] = useState<INote>(note)
 
-    const handleEdit = () => {
-        const noteId = note.id;
-      
-        socket.emit('updateNote', { id: noteId, noteData: edit });
-      };
+    useEffect(() => {
+        const handleUpdateNote = (updatedNote: INote) => {
+            if (updatedNote.id === note.id) {
+              setEditNote(updatedNote);
+              setEdit(false);
+            }
+          };
+          socket.on('noteUpdated', handleUpdateNote);
+          return () => {
+            socket.off('noteUpdated', handleUpdateNote);
+    };
+    }, [note.id])
 
       const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const value = e.target.value;
-        setEditNote({ ...note, [e.target.id]: value });
+        setEditNote({ ...editNote, [e.target.id]: e.target.value });
       };
 
     //   delete Note
     const handleDelete = async(id:number) =>{
         try {
-            const response = await fetch(`http://localhost:5000/api/note/${id}`, {method: 'DELETE'});
+            const response = await fetch(`${baseUrl}note/${id}`, {method: 'DELETE'});
             if (response.status === 204) {
                 alert("Note deleted");
                 fetchNotes();  // refreshpage with fetch notes
@@ -53,8 +63,8 @@ const Note:React.FC<NoteProps> = ({note, notes, fetchNotes }) => {
                         <div className='mr-2'>
                             <h1 className='border-b-2 border-slate-500'>{note.title.toUpperCase()}</h1>
                             <p className='mt-5'>{note.body}</p>
-                            <span>{`Created: ${note.createdAt}`}</span>
-                            <span>{`Updated: ${note.updatedAt}`}</span>
+                            <p className='mt-5'>{`Created: ${note.createdAt}`}</p>
+                            <p className='mt-2'>{`Updated: ${note.updatedAt}`}</p>
                         </div>
                     )
                 }

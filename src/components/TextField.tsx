@@ -1,6 +1,6 @@
 import React,{useState}from 'react';
 import './styles.css';
-import { INote } from './model';
+import { INote, baseUrl } from './model';
 
 const initialValues: INote = {
   title: "",
@@ -31,7 +31,7 @@ const TextField:React.FC<Props> = ({fetchNotes}) => {
     };
 
     try {
-        const response = await fetch("http://localhost:5000/api/", options);
+        const response = await fetch(`${baseUrl}`, options);
         if (response.ok) {
         const data = await response.json();
           alert(data.message);
