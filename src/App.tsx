@@ -15,9 +15,7 @@ const App:React.FC = () => {
       console.error("Error fetching notes:", error);
     }
   };
-    useEffect(() => {
-      fetchNotes()
-    }, [setNotes])  
+     
   
   return (
     <div className="App">
